@@ -1,11 +1,150 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Merci</title>
+    <title>Merci - FriendLy Event</title>
+    <style>
+        body {
+            background: linear-gradient(45deg, #1a1a1a, #000033);
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            position: relative;
+            overflow-y: auto;
+        }
+    
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+    
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #fff;
+            border-radius: 50%;
+            animation: twinkle 1s infinite;
+        }
+    
+        @keyframes twinkle {
+            0% { opacity: 0; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.5); }
+            100% { opacity: 0; transform: scale(1); }
+        }
+    
+        .firework {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            animation: firework 2s ease-out infinite;
+        }
+    
+        @keyframes firework {
+            0% { 
+                transform: translate(var(--startX), 100vh);
+                background: var(--color);
+            }
+            50% { 
+                transform: translate(var(--startX), var(--endY));
+                background: var(--color);
+            }
+            60% {
+                transform: translate(var(--startX), var(--endY));
+                width: 4px;
+                height: 4px;
+            }
+            100% { 
+                transform: translate(var(--startX), var(--endY));
+                width: 300px;
+                height: 300px;
+                background: transparent;
+                border: 2px solid var(--color);
+                opacity: 0;
+            }
+        }
+    
+        .thank-you-container {
+            max-width: 500px;
+            margin: 20px auto;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            box-shadow: 0 0 20px rgba(255,255,255,0.1);
+            border-radius: 8px;
+            background-color: rgba(255, 255, 255, 0.95);
+            position: relative;
+            z-index: 1;
+            height: auto;
+            text-align: center;
+        }
+    
+        .logo-container {
+            text-align: center;
+            margin-bottom: 20px;
+            padding: 10px;
+        }
+        
+        .logo-container img {
+            max-width: 150px;
+            height: auto;
+            border-radius: 50%; 
+            background-color: white; 
+            padding: 10px;
+            display: block; 
+            margin: 0 auto; 
+        }
+
+        .thank-you-message {
+            font-size: 24px;
+            color: #333;
+            margin: 20px 0;
+            font-weight: bold;
+        }
+    </style>
+    
+    <script>
+        window.onload = function() {
+            const starsContainer = document.createElement('div');
+            starsContainer.className = 'stars';
+            
+            for(let i = 0; i < 100; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 2 + 's';
+                starsContainer.appendChild(star);
+            }
+ 
+            const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff'];
+            for(let i = 0; i < 8; i++) {
+                const firework = document.createElement('div');
+                firework.className = 'firework';
+                firework.style.setProperty('--startX', (Math.random() * 80 + 10) + 'vw');
+                firework.style.setProperty('--endY', (Math.random() * 40 + 20) + 'vh');
+                firework.style.setProperty('--color', colors[Math.floor(Math.random() * colors.length)]);
+                firework.style.animationDelay = (i * 0.3) + 's';
+                starsContainer.appendChild(firework);
+            }
+            
+            document.body.insertBefore(starsContainer, document.body.firstChild);
+        }
+    </script>
 </head>
 <body>
-    <h1>Votre demande est effectuée, Friendly Event vous remercie et prendra votre demande en charge au plus vite!</h1>
+    <div class="thank-you-container">
+        <div class="logo-container">
+            <img src="images/logoFE.png" alt="FriendLy Event Logo">
+        </div>
+        <div class="thank-you-message">
+            FriendLy Event vous remercie
+        </div>
+    </div>
 </body>
 </html>
